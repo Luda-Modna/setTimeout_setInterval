@@ -2,13 +2,18 @@
 
 function printNumbers(from, to, interval) {
   let current = from;
-  const timeoutId = setInterval(() => {
+  let timerId = null;
+
+  function timeoutIdFunction() {
     console.log(current);
     if (current === to) {
-      clearInterval(timeoutId);
+      clearTimeout(timerId);
+    } else {
+      current++;
+      timerId = setTimeout(timeoutIdFunction, interval);
     }
-    current++;
-  }, interval);
+  }
+  timeoutIdFunction();
 }
 
 printNumbers(1, 8, 1000);
